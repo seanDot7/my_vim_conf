@@ -4,6 +4,7 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+execute pathogen#infect()
 " " alternatively, pass a path where Vundle should install plugins
 " "call vundle#begin('~/some/path/here')
 "
@@ -26,27 +27,35 @@ Plugin 'VundleVim/Vundle.vim'
 " " Avoid a name conflict with L9
 " Plugin 'user/L9', {'name': 'newL9'}
 "
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'Valloric/ListToggle'
-Bundle 'scrooloose/syntastic'
-Bundle 'scrooloose/nerdtree'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'bling/vim-airline'
-Bundle 'vim-airline/vim-airline-themes'
-Bundle 'kien/ctrlp.vim'
-Bundle 'amix/open_file_under_cursor.vim'
-Bundle 'vim-scripts/taglist.vim'
-Bundle 'vim-scripts/mru.vim'
-Bundle 'myusuf3/numbers.vim'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'scrooloose/nerdcommenter'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/ListToggle'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdtree'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'kien/ctrlp.vim'
+Plugin 'amix/open_file_under_cursor.vim'
+Plugin 'vim-scripts/taglist.vim'
+Plugin 'vim-scripts/mru.vim'
+Plugin 'myusuf3/numbers.vim'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'mattn/emmet-vim'
 Plugin 'posva/vim-vue'
+" Plugin 'sekel/vim-vue-syntastic'
 Plugin 'tpope/vim-sleuth'
+" Plugin 'ciaranm/detectindent'
 Plugin 'pangloss/vim-javascript'
 Plugin 'JulesWang/css.vim' " only necessary if your Vim version < 7.4
 Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'jiangmiao/auto-pairs'
+" Plugin 'jiangmiao/auto-pairs'
+Plugin 'Raimondi/delimitMate'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'mileszs/ack.vim'
 
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -64,9 +73,16 @@ filetype plugin indent on    " required
 " " Put your non-Plugin stuff after this line
 
 
-" S7 Configuration
+" s7 Conf Begin
 let mapleader = ","
 let g:mapleader = ","
+
+set cindent
+" special indentation behavior by file type
+autocmd FileType html setlocal shiftwidth=2 tabstop=2 sts=0 expandtab
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 sts=0 expandtab
+autocmd FileType css setlocal shiftwidth=2 tabstop=2 sts=0 expandtab
+autocmd FileType scss setlocal shiftwidth=2 tabstop=2 sts=0 expandtab
 
 " vim-indent-guides Configuration
 let g:indent_guides_enable_on_vim_startup = 1
@@ -81,10 +97,66 @@ let g:javascript_enable_domhtmlcss = 1
 
 " nerdcommenter
 let NERDSpaceDelims = 1
+" let g:NERDCustomDelimiters = { 'javascript' : { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'  } } 
 
-" cursor jump back & forth
-nmap ˙ <C-i>
-nmap ¬ <C-o>
+
+" sync syntax highlight mannually
+noremap <leader>sr <Esc>:syntax sync fromstart<CR>
+inoremap <leader>sr <C-o>:syntax sync fromstart<CR>
+
+" delimitMate
+let delimitMate_expand_cr = 1
+
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1 
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_vue_checkers = ['eslint']
+" let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
+" if matchstr(local_eslint, "^\/\\w") == ''
+  " let local_eslint = getcwd() . "/" . local_eslint
+" endif
+" if executable(local_eslint)
+  " let g:syntastic_javascript_eslint_exec = local_eslint
+  " let g:syntastic_vue_eslint_exec = local_eslint
+" endif
+
+noremap <leader>sc :Errors<CR>
+noremap <leader>sq :lclose<CR>
+
+" tabs related
+nmap ¬ :tabnext<cr>
+nmap ˙ :tabprevious<cr>
+
+" map <leader>ll :tabnext<cr>
+" map <leader>hh :tabprevious<cr>
+map <leader>thh :-tabmove<cr>
+map <leader>tll :+tabmove<cr>
+" map alt-1....0 to swtich tab
+:nn ¡ 1gt 
+:nn ™ 2gt 
+:nn £ 3gt 
+:nn ¢ 4gt 
+:nn ∞ 5gt 
+:nn § 6gt 
+:nn ¶ 7gt 
+:nn • 8gt 
+:nn ª 9gt 
+:nn º :tablast<CR>
+
+" ultisnips
+let g:UltiSnipsExpandTrigger="<c-s>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+
+" s7 Conf End
 
 " YCM Configuration
 let g:ycm_min_num_of_chars_for_completion = 1 
@@ -93,6 +165,8 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_key_list_select_completion = ['<tab>', '<c-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
 let g:ycm_confirm_extra_conf = 0
+let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
+" let g:ycm_path_to_python_interpreter = '/Users/seandot7/shims/python'
 
 nnoremap <leader>gdl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gdf :YcmCompleter GoToDefinition<CR>
@@ -102,15 +176,13 @@ map <F3> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 syntax enable
 syntax on
+syntax sync minlines=256
 set nu
-set cursorline
-set cursorcolumn
+" s7 - cursorline and cursorcolumn will make vim slow.
+" set cursorline
+" set cursorcolumn
 set background=dark
 colorscheme solarized
-
-" Tab switch
-map <leader>hh :tabnext<cr>
-map <leader>ll :tabprevious<cr>
 
 " Use tab & shift+tab to indent
 " nmap <tab> V>
@@ -131,6 +203,9 @@ vmap ∆ :m'>+<cr>`<my`>mzgv`yo`z
 vmap ˚ :m'<-2<cr>`>my`<mzgv`yo`z
 
 " NERDTree
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+let NERDTreeQuitOnOpen = 1
 map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark 
 map <leader>nf :NERDTreeFind<cr>
@@ -571,5 +646,4 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
-
 
