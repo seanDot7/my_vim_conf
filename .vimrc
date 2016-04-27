@@ -1,10 +1,16 @@
+" s.7(seanDot7) .vimrc
+" 
+" Special steps needed by following plugins, refer to the docs.
+" youcompleteme, powerline-fonts
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-execute pathogen#infect()
+call pathogen#infect()
+call pathogen#helptags()
 " " alternatively, pass a path where Vundle should install plugins
 " "call vundle#begin('~/some/path/here')
 "
@@ -27,623 +33,948 @@ Plugin 'VundleVim/Vundle.vim'
 " " Avoid a name conflict with L9
 " Plugin 'user/L9', {'name': 'newL9'}
 "
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'Valloric/ListToggle'
-Plugin 'scrooloose/syntastic'
-Plugin 'scrooloose/nerdtree'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'kien/ctrlp.vim'
-Plugin 'amix/open_file_under_cursor.vim'
-Plugin 'vim-scripts/taglist.vim'
-Plugin 'vim-scripts/mru.vim'
-Plugin 'myusuf3/numbers.vim'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'mattn/emmet-vim'
-Plugin 'posva/vim-vue'
-" Plugin 'sekel/vim-vue-syntastic'
-Plugin 'tpope/vim-sleuth'
-" Plugin 'ciaranm/detectindent'
-Plugin 'pangloss/vim-javascript'
-Plugin 'JulesWang/css.vim' " only necessary if your Vim version < 7.4
-Plugin 'cakebaker/scss-syntax.vim'
-" Plugin 'jiangmiao/auto-pairs'
-Plugin 'Raimondi/delimitMate'
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'mileszs/ack.vim'
+
+" Environment {
+
+    Plugin 'altercation/vim-colors-solarized'
+    Plugin 'spf13/vim-colors'
+    Plugin 'flazz/vim-colorschemes'
+
+    Plugin 'vim-airline/vim-airline'
+    Plugin 'vim-airline/vim-airline-themes'
+    Plugin 'powerline/fonts'
+
+    Plugin 'scrooloose/nerdtree'
+    Plugin 'jistr/vim-nerdtree-tabs'
+
+    Plugin 'kien/ctrlp.vim'
+
+    Plugin 'amix/open_file_under_cursor.vim'
+
+    Plugin 'vim-scripts/mru.vim'
+
+    Plugin 'myusuf3/numbers.vim'
+
+    Plugin 'vim-scripts/sessionman.vim'
+
+    Plugin 'vim-scripts/matchit.zip'
+    
+    Plugin 'mbbill/undotree'
+    
+    Plugin 'vim-scripts/restore_view.vim'
+
+    Plugin 'mhinz/vim-signify'
+
+    Plugin 'tpope/vim-abolish.git'
+
+    Plugin 'osyo-manga/vim-over'
+
+    " Plugin 'kana/vim-textobj-user'
+    " Plugin 'kana/vim-textobj-indent'
+
+    Plugin 'gcmt/wildfire.vim'
+
+    Plugin 'reedes/vim-litecorrect'
+
+    Plugin 'Shougo/unite.vim'
+    
+    Plugin 'ervandew/supertab'
+" }
+
+" Writing {
+    Plugin 'easymotion/vim-easymotion'
+    
+    Plugin 'godlygeek/tabular'
+
+    " Plugin 'reedes/vim-textobj-sentence'
+    " Plugin 'reedes/vim-textobj-quote'
+    " Plugin 'reedes/vim-wordy'
+" }
+
+" Programing {
+    " General {
+        " Plugin 'MarcWeber/vim-addon-mw-utils'
+        " Plugin 'tomtom/tlib_vim'
+        Plugin 'Valloric/YouCompleteMe'
+        Plugin 'Valloric/ListToggle'
+        Plugin 'scrooloose/syntastic'
+        Plugin 'terryma/vim-multiple-cursors'
+        Plugin 'vim-scripts/taglist.vim'
+        Plugin 'nathanaelkane/vim-indent-guides'
+
+        Plugin 'scrooloose/nerdcommenter'
+        " Plugin 'tpope/vim-commentary'
+
+        Plugin 'tpope/vim-sleuth'
+        " Plugin 'ciaranm/detectindent'
+        " Plugin 'jiangmiao/auto-pairs'
+        Plugin 'Raimondi/delimitMate'
+
+        Plugin 'tpope/vim-fugitive'
+        Plugin 'airblade/vim-gitgutter'
+        Plugin 'rhysd/conflict-marker.vim'
+
+        Plugin 'SirVer/ultisnips'
+        Plugin 'honza/vim-snippets'
+
+        Plugin 'mileszs/ack.vim'
+
+        Plugin 'tpope/vim-surround'
+        Plugin 'tpope/vim-repeat'
+
+        Plugin 'tacahiroy/ctrlp-funky'
+
+        " Plugin 'mattn/webapi-vim'
+        " Plugin 'mattn/gist-vim'
+
+        Plugin 'luochen1990/rainbow'
+
+        Plugin 'majutsushi/tagbar'
+
+        " Plugin 'spf13/vim-preview'
+
+    " }
+
+    " Python {
+        Plugin 'klen/python-mode'
+        Plugin 'yssource/python.vim'
+        Plugin 'python_match.vim'
+        Plugin 'pythoncomplete'
+    " }
+
+    " Javascript {
+        Plugin 'pangloss/vim-javascript'
+        Plugin 'elzr/vim-json'
+        Plugin 'kchmck/vim-coffee-script'
+        Plugin 'briancollins/vim-jst'
+    " }
+
+    " CSS/Less/Scss {
+        Plugin 'hail2u/vim-css3-syntax'
+        Plugin 'JulesWang/css.vim' " only necessary if your Vim version < 7.4
+        Plugin 'cakebaker/scss-syntax.vim'
+        Plugin 'tpope/vim-haml'
+        Plugin 'groenewege/vim-less'
+
+        Plugin 'gorodinskiy/vim-coloresque'
+    " }
+
+    " HTML {
+        Plugin 'mattn/emmet-vim'
+        Plugin 'amirh/HTML-AutoCloseTag'
+    " }
+    
+    " Vue {
+        Plugin 'posva/vim-vue'
+        " Plugin 'sekel/vim-vue-syntastic'
+    " }
+
+    " Rust {
+        " Plugin 'rust-lang/rust.vim'
+    " }
+
+    " Ruby {
+        " Plugin 'tpope/vim-rails'
+        " Plugin 'tpope/vim-cucumber'
+        " Plugin 'quentindecock/vim-cucumber-align-pipes'
+    " }
+
+    " Markdown {
+        Plugin 'tpope/vim-markdown'
+    " }
+" }
 
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" " To ignore plugin indent changes, instead use:
-" "filetype plugin on
-" "
-" " Brief help
-" " :PluginList       - lists configured plugins
-" " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" " :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-" "
-" " see :h vundle for more details or wiki for FAQ
 " " Put your non-Plugin stuff after this line
 
-
-" s7 Conf Begin
-let mapleader = ","
-let g:mapleader = ","
-
-set cindent
-" special indentation behavior by file type
-autocmd FileType html setlocal shiftwidth=2 tabstop=2 sts=0 expandtab
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 sts=0 expandtab
-autocmd FileType css setlocal shiftwidth=2 tabstop=2 sts=0 expandtab
-autocmd FileType scss setlocal shiftwidth=2 tabstop=2 sts=0 expandtab
-
-" vim-indent-guides Configuration
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
-
-" ctrlp
-let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
-
-" vim-javascript
-let g:javascript_enable_domhtmlcss = 1
-
-" nerdcommenter
-let NERDSpaceDelims = 1
-" let g:NERDCustomDelimiters = { 'javascript' : { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'  } } 
-
-
-" sync syntax highlight mannually
-noremap <leader>sr <Esc>:syntax sync fromstart<CR>
-inoremap <leader>sr <C-o>:syntax sync fromstart<CR>
-
-" delimitMate
-let delimitMate_expand_cr = 1
-
-" syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1 
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_vue_checkers = ['eslint']
-" let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
-" if matchstr(local_eslint, "^\/\\w") == ''
-  " let local_eslint = getcwd() . "/" . local_eslint
-" endif
-" if executable(local_eslint)
-  " let g:syntastic_javascript_eslint_exec = local_eslint
-  " let g:syntastic_vue_eslint_exec = local_eslint
-" endif
-
-noremap <leader>sc :Errors<CR>
-noremap <leader>sq :lclose<CR>
-
-" tabs related
-nmap ¬ :tabnext<cr>
-nmap ˙ :tabprevious<cr>
-
-" map <leader>ll :tabnext<cr>
-" map <leader>hh :tabprevious<cr>
-map <leader>thh :-tabmove<cr>
-map <leader>tll :+tabmove<cr>
-" map alt-1....0 to swtich tab
-:nn ¡ 1gt 
-:nn ™ 2gt 
-:nn £ 3gt 
-:nn ¢ 4gt 
-:nn ∞ 5gt 
-:nn § 6gt 
-:nn ¶ 7gt 
-:nn • 8gt 
-:nn ª 9gt 
-:nn º :tablast<CR>
-
-" ultisnips
-let g:UltiSnipsExpandTrigger="<c-s>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-
-" s7 Conf End
-
-" YCM Configuration
-let g:ycm_min_num_of_chars_for_completion = 1 
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_complete_in_comments = 1
-let g:ycm_key_list_select_completion = ['<tab>', '<c-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
-" let g:ycm_path_to_python_interpreter = '/Users/seandot7/shims/python'
-
-nnoremap <leader>gdl :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>gdf :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-map <F3> :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-
-syntax enable
-syntax on
-syntax sync minlines=256
-set nu
-" s7 - cursorline and cursorcolumn will make vim slow.
-" set cursorline
-" set cursorcolumn
-set background=dark
-colorscheme solarized
-
-" Use tab & shift+tab to indent
-" nmap <tab> V>
-" nmap <s-tab> V<
-vmap <tab> >gv
-vmap <s-tab> <gv
-
-" Line swap
-" nmap <s-j> mz:m+<cr>`z
-" nmap <s-k> mz:m-2<cr>`z
-" vmap <s-j> :m'>+<cr>`<my`>mzgv`yo`z
-" vmap <s-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-" This part is only for Mac, alt + j/k to swap line
-nmap ∆ mz:m+<cr>`z
-nmap ˚ mz:m-2<cr>`z
-vmap ∆ :m'>+<cr>`<my`>mzgv`yo`z
-vmap ˚ :m'<-2<cr>`>my`<mzgv`yo`z
-
-" NERDTree
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-let NERDTreeQuitOnOpen = 1
-map <leader>nn :NERDTreeToggle<cr>
-map <leader>nb :NERDTreeFromBookmark 
-map <leader>nf :NERDTreeFind<cr>
-
-" MRU
-map <leader>f :MRU<CR>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Maintainer: 
-"       Amir Salihefendic
-"       http://amix.dk - amix@amix.dk
-"
-" Version: 
-"       5.0 - 29/05/12 15:43:36
-"
-" Blog_post: 
-"       http://amix.dk/blog/post/19691#The-ultimate-Vim-configuration-on-Github
-"
-" Awesome_version:
-"       Get this config, nice color schemes and lots of plugins!
-"
-"       Install the awesome version from:
-"
-"           https://github.com/amix/vimrc
-"
-" Syntax_highlighted:
-"       http://amix.dk/vim/vimrc.html
-"
-" Raw_version: 
-"       http://amix.dk/vim/vimrc.txt
-"
-" Sections:
-"    -> General
-"    -> VIM user interface
-"    -> Colors and Fonts
-"    -> Files and backups
-"    -> Text, tab and indent related
-"    -> Visual mode related
-"    -> Moving around, tabs and buffers
-"    -> Status line
-"    -> Editing mappings
-"    -> vimgrep searching and cope displaying
-"    -> Spell checking
-"    -> Misc
-"    -> Helper functions
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Sets how many lines of history VIM has to remember
-set history=500
-
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
-
-" Set to auto read when a file is changed from the outside
-set autoread
-
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
-
-" Fast saving
-nmap <leader>w :w!<cr>
-
-" :W sudo saves the file 
-" (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
-
-" Avoid garbled characters in Chinese language windows OS
-let $LANG='en' 
-set langmenu=en
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-
-" Turn on the WiLd menu
-set wildmenu
-
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc
-if has("win16") || has("win32")
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-else
-    set wildignore+=.git\*,.hg\*,.svn\*
-endif
-
-"Always show current position
-set ruler
-
-" Height of the command bar
-set cmdheight=2
-
-" A buffer becomes hidden when it is abandoned
-set hid
-
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
-
-" In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
-
-" Ignore case when searching
-set ignorecase
-
-" When searching try to be smart about cases 
-set smartcase
-
-" Highlight search results
-set hlsearch
-
-" Makes search act like search in modern browsers
-set incsearch 
-
-" Don't redraw while executing macros (good performance config)
-set lazyredraw 
-
-" For regular expressions turn magic on
-set magic
-
-" Show matching brackets when text indicator is over them
-set showmatch 
-" How many tenths of a second to blink when matching brackets
-set mat=2
-
-" No annoying sound on errors
-set noerrorbells
-set novisualbell
-set t_vb=
-set tm=500
-
-" Add a bit extra margin to the left
-set foldcolumn=1
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable syntax highlighting
-syntax enable 
-
-try
-    colorscheme solarized
-catch
-endtry
-
-set background=dark
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
-
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, backups and undo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
-set nobackup
-set nowb
-set noswapfile
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use spaces instead of tabs
-set expandtab
-
-" Be smart when using tabs ;)
-set smarttab
-
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
-
-" Linebreak on 500 characters
-set lbr
-set tw=500
-
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
-
-
-""""""""""""""""""""""""""""""
-" => Visual mode related
-""""""""""""""""""""""""""""""
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :call VisualSelection('f', '')<CR>
-vnoremap <silent> # :call VisualSelection('b', '')<CR>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Treat long lines as break lines (useful when moving around in them)
-map j gj
-map k gk
-
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
-
-" Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
-
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-" Close the current buffer
-map <leader>bd :Bclose<cr>
-
-" Close all the buffers
-map <leader>ba :bufdo bd<cr>
-
-" Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>t<leader> :tabnext<cr>
-map <leader>tm :tabmove 
-
-" Let 'tl' toggle between this and the last accessed tab
-let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()
-
-
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
-
-" Specify the behavior when switching between buffers 
-try
-  set switchbuf=useopen,usetab,newtab
-  set stal=2
-catch
-endtry
-
-" Return to last edit position when opening files (You want this!)
-" autocmd BufReadPost *
-"      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-"      \   exe "normal! g`\"" |
-"      \ endif
-" Remember info about open buffers on close
-" set viminfo^=%
-
-
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
-" Always show the status line
-set laststatus=2
-
-" Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Editing mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap VIM 0 to first non-blank character
-map 0 ^
-
-" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
-endif
-
-" Delete trailing white space on save, useful for Python and CoffeeScript ;)
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ag searching and cope displaying
-"    requires ag.vim - it's much better than vimgrep/grep
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" When you press gv you Ag after the selected text
-vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
-
-" Open Ag and put the cursor in the right position
-map <leader>g :Ag 
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
-
-" Do :help cope if you are unsure what cope is. It's super useful!
-"
-" When you search with Ag, display your results in cope by doing:
-"   <leader>cc
-"
-" To go to the next search result do:
-"   <leader>n
-"
-" To go to the previous search results do:
-"   <leader>p
-"
-map <leader>cc :botright cope<cr>
-map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
-
-" Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-" Quickly open a buffer for scribble
-" map <leader>q :e ~/buffer<cr>
-
-" Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
-
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Helper functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
-endfunction 
-
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'b'
-        execute "normal ?" . l:pattern . "^M"
-    elseif a:direction == 'gv'
-        call CmdLine("Ag \"" . l:pattern . "\" " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    elseif a:direction == 'f'
-        execute "normal /" . l:pattern . "^M"
+" Vim UI {
+
+    " Identify platform {
+        silent function! OSX()
+            return has('macunix')
+        endfunction
+        silent function! LINUX()
+            return has('unix') && !has('macunix') && !has('win32unix')
+        endfunction
+        silent function! WINDOWS()
+            return  (has('win32') || has('win64'))
+        endfunction
+    " }
+
+    syntax enable
+    syntax on
+    set background=dark
+    syntax sync minlines=256
+    " s7 - cursorline and cursorcolumn will make vim slow.
+    set cursorline
+    " set cursorcolumn
+
+    if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
+        let g:solarized_termcolors=256
+        let g:solarized_termtrans=1
+        let g:solarized_contrast="normal"
+        let g:solarized_visibility="normal"
+        color solarized             " Load a colorscheme
     endif
 
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
+    set tabpagemax=15               " Only show 15 tabs
+    set showmode                    " Display the current mode
 
+    highlight clear SignColumn      " SignColumn should match background
+    highlight clear LineNr          " Current line number row will have same background color in relative mode
+    "highlight clear CursorLineNr    " Remove highlight color from current line number
 
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
+    if has('cmdline_info')
+        set ruler                   " Show the ruler
+        set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
+        set showcmd                 " Show partial commands in status line and
+                                    " Selected characters/lines in visual mode
     endif
-    return ''
-endfunction
 
-" Don't close window, when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-   let l:currentBufNum = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
+    if has('statusline')
+        set laststatus=2
 
-   if buflisted(l:alternateBufNum)
-     buffer #
-   else
-     bnext
-   endif
+        " A common statusline
+        " set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
-   if bufnr("%") == l:currentBufNum
-     new
-   endif
+        " Broken down into easily includeable segments
+        set statusline=%<%f\                     " Filename
+        set statusline+=%w%h%m%r                 " Options
+        if isdirectory(expand("~/.vim/bundle/vim-fugitive/"))
+            set statusline+=%{fugitive#statusline()} " Git Hotness
+        endif
+        set statusline+=\ [%{&ff}/%Y]            " Filetype
+        set statusline+=\ [%{getcwd()}]          " Current dir
+        set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+    endif
 
-   if buflisted(l:currentBufNum)
-     execute("bdelete! ".l:currentBufNum)
-   endif
-endfunction
+    set backspace=indent,eol,start  " Backspace for dummies
+    set linespace=0                 " No extra spaces between rows
+    set number                      " Line numbers on
+    set showmatch                   " Show matching brackets/parenthesis
+    set incsearch                   " Find as you type search
+    set hlsearch                    " Highlight search terms
+    set winminheight=0              " Windows can be 0 line high
+    set ignorecase                  " Case insensitive search
+    set smartcase                   " Case sensitive when uc present
+    set wildmenu                    " Show list instead of just completing
+    set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+    set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
+    set scrolljump=5                " Lines to scroll when cursor leaves screen
+    set scrolloff=3                 " Minimum lines to keep above and below cursor
+    set foldenable                  " Auto fold code
+    set list
+    set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
+    set so=7                        " Set 7 lines to the cursor - when moving vertically using j/k
+    set cmdheight=2                 " Height of the command bar
+    set hid                         " A buffer becomes hidden when it is abandoned
+    set mouse=a                     " Automatically enable mouse usage
+    set mousehide                   " Hide the mouse cursor while typing
+    set lazyredraw                  " Don't redraw while executing macros (good performance config)
+    set magic                       " For regular expressions turn magic on
+    set mat=2                       " How many tenths of a second to blink when matching brackets
+    set ffs=unix,dos,mac            " Use Unix as the standard file type
+
+    scriptencoding utf-8
+    set encoding=utf8               " Set utf8 as standard encoding and en_US as the standard language
+
+
+    " No annoying sound on errors
+    set noerrorbells
+    set novisualbell
+    set t_vb=
+    set tm=500
+
+    " Add a bit extra margin to the left
+    " set foldcolumn=1
+
+    " Turn backup off, since most stuff is in SVN, git et.c anyway...
+    set nobackup
+    set nowb
+    set noswapfile
+
+    " Linebreak on 500 characters
+    set lbr
+    set tw=500
+
+    " Visual mode pressing * or # searches for the current selection
+    " Super useful! From an idea by Michael Naumann
+    vnoremap <silent> * :call VisualSelection('f', '')<CR>
+    vnoremap <silent> # :call VisualSelection('b', '')<CR>
+
+    " Set extra options when running in GUI mode
+    if has("gui_running")
+        set guioptions-=T
+        set guioptions-=e
+        set t_Co=256
+        set guitablabel=%M\ %t
+    endif
+
+    " Treat long lines as break lines (useful when moving around in them)
+    map j gj
+    map k gk
+
+    " Avoid garbled characters in Chinese language windows OS
+    let $LANG='en' 
+    set langmenu=en
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+
+    " Ignore compiled files
+    set wildignore=*.o,*~,*.pyc
+    if has("win16") || has("win32")
+        set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+    else
+        set wildignore+=.git\*,.hg\*,.svn\*
+    endif
+
+" }
+
+" Formatting {
+
+    set wrap                        " Wrap long lines
+    set autoindent                  " Indent at the same level of the previous line
+    set cindent                     " Clever indent
+    set shiftwidth=4                " Use indents of 4 spaces
+    set expandtab                   " Tabs are spaces, not tabs
+    set tabstop=4                   " An indentation every four columns
+    set softtabstop=4               " Let backspace delete indent
+    set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
+    set splitright                  " Puts new vsplit windows to the right of the current
+    set splitbelow                  " Puts new split windows to the bottom of the current
+    "set matchpairs+=<:>             " Match, to be used with %
+    set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
+    "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
+
+    autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:s7_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
+    "autocmd FileType go autocmd BufWritePre <buffer> Fmt
+    autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
+    autocmd FileType haskell,puppet,ruby,yml setlocal expandtab shiftwidth=2 softtabstop=2
+    " preceding line best in a plugin but here for now.
+
+    autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+
+    " Workaround vim-commentary for Haskell
+    autocmd FileType haskell setlocal commentstring=--\ %s
+    " Workaround broken colour highlighting in Haskell
+    autocmd FileType haskell,rust setlocal nospell
+
+    " special indentation behavior by file type
+    autocmd FileType html setlocal shiftwidth=2 tabstop=2 sts=0 expandtab
+    autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 sts=0 expandtab
+    autocmd FileType css setlocal shiftwidth=2 tabstop=2 sts=0 expandtab
+    autocmd FileType scss setlocal shiftwidth=2 tabstop=2 sts=0 expandtab
+
+" }
+
+" Key Mappings / Global Settings {
+
+    let mapleader = ","
+    let g:mapleader = ","
+
+    " Sets how many lines of history VIM has to remember
+    set history=1000
+    
+    " Set to auto read when a file is changed from the outside
+    set autoread
+
+    " clipboard
+    if has('clipboard')
+        if has('unnamedplus')  " When possible use + register for copy-paste
+            set clipboard=unnamed,unnamedplus
+        else         " On mac and Windows, use * register for copy-paste
+            set clipboard=unnamed
+        endif
+    endif
+
+    " If no plugin like restore-view exists
+    " Return to last edit position when opening files (You want this!)
+    " autocmd BufReadPost *
+    "      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    "      \   exe "normal! g`\"" |
+    "      \ endif
+    " Remember info about open buffers on close
+    " set viminfo^=%
+
+    " ================== Key Mappings ================
+    " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+    map <space> /
+    map <c-space> ?
+
+    " Disable highlight when <leader><cr> is pressed
+    map <silent> <leader><cr> :noh<cr>
+
+    " Smart way to move between windows
+    map <C-j> <C-W>j
+    map <C-k> <C-W>k
+    map <C-h> <C-W>h
+    map <C-l> <C-W>l
+
+    " Close the current buffer
+    map <leader>bd :Bclose<cr>
+
+    " Close all the buffers
+    map <leader>ba :bufdo bd<cr>
+
+    " Useful mappings for managing tabs
+    map <leader>tn :tabnew<cr>
+    map <leader>to :tabonly<cr>
+    map <leader>tc :tabclose<cr>
+    map <leader>t<leader> :tabnext<cr>
+    map <leader>tm :tabmove 
+
+    " Let 'tl' toggle between this and the last accessed tab
+    let g:lasttab = 1
+    nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+    au TabLeave * let g:lasttab = tabpagenr()
+
+
+    " Opens a new tab with the current buffer's path
+    " Super useful when editing files in the same directory
+    map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+    " Switch CWD to the directory of the open buffer
+    map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+    " Specify the behavior when switching between buffers 
+    try
+      set switchbuf=useopen,usetab,newtab
+      set stal=2
+    catch
+    endtry
+
+
+
+    " :W sudo saves the file 
+    " (useful for handling the permission-denied error)
+    command W w !sudo tee % > /dev/null
+
+    " Fast saving
+    nmap <leader>w :w!<cr>
+
+    " sync syntax highlight mannually
+    noremap <leader>sr <Esc>:syntax sync fromstart<CR>
+    inoremap <leader>sr <C-o>:syntax sync fromstart<CR>
+
+    " tabs related
+    " Mac only. Alt+h/l to switch to left/right tab.
+    if has("mac") || has("macunix")
+        nmap ¬ :tabnext<cr>
+        nmap ˙ :tabprevious<cr>
+    endif
+
+    " map <leader>ll :tabnext<cr>
+    " map <leader>hh :tabprevious<cr>
+    map <leader>thh :-tabmove<cr>
+    map <leader>tll :+tabmove<cr>
+    " map alt-1....0 to swtich tab
+    if has("mac") || has("macunix")
+        :nn ¡ 1gt 
+        :nn ™ 2gt 
+        :nn £ 3gt 
+        :nn ¢ 4gt 
+        :nn ∞ 5gt 
+        :nn § 6gt 
+        :nn ¶ 7gt 
+        :nn • 8gt 
+        :nn ª 9gt 
+        :nn º :tablast<CR>
+    endif
+
+    " Use tab & shift+tab to indent
+    nmap <tab> V>
+    nmap <s-tab> V<
+    vmap <tab> >gv
+    vmap <s-tab> <gv
+
+    " Line swap
+    " nmap <s-j> mz:m+<cr>`z
+    " nmap <s-k> mz:m-2<cr>`z
+    " vmap <s-j> :m'>+<cr>`<my`>mzgv`yo`z
+    " vmap <s-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+    " Mac only, alt + j/k to swap line
+    if has("mac") || has("macunix")
+        nmap ∆ mz:m+<cr>`z
+        nmap ˚ mz:m-2<cr>`z
+        vmap ∆ :m'>+<cr>`<my`>mzgv`yo`z
+        vmap ˚ :m'<-2<cr>`>my`<mzgv`yo`z
+    endif
+
+    " Remap VIM 0 to first non-blank character
+    map 0 ^
+
+    " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
+    nmap <M-j> mz:m+<cr>`z
+    nmap <M-k> mz:m-2<cr>`z
+    vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+    vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+    if has("mac") || has("macunix")
+      nmap <D-j> <M-j>
+      nmap <D-k> <M-k>
+      vmap <D-j> <M-j>
+      vmap <D-k> <M-k>
+    endif
+
+    " Delete trailing white space on save, useful for Python and CoffeeScript ;)
+    func! DeleteTrailingWS()
+      exe "normal mz"
+      %s/\s\+$//ge
+      exe "normal `z"
+    endfunc
+    autocmd BufWrite *.py :call DeleteTrailingWS()
+    autocmd BufWrite *.coffee :call DeleteTrailingWS()
+
+
+    """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " => Ag searching and cope displaying
+    "    requires ag.vim - it's much better than vimgrep/grep
+    """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " When you press gv you Ag after the selected text
+    vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
+
+    " Open Ag and put the cursor in the right position
+    map <leader>g :Ag 
+
+    " When you press <leader>r you can search and replace the selected text
+    vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
+
+    " Do :help cope if you are unsure what cope is. It's super useful!
+    "
+    " When you search with Ag, display your results in cope by doing:
+    "   <leader>cc
+    "
+    " To go to the next search result do:
+    "   <leader>n
+    "
+    " To go to the previous search results do:
+    "   <leader>p
+    "
+    map <leader>cc :botright cope<cr>
+    map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
+    map <leader>n :cn<cr>
+    map <leader>p :cp<cr>
+
+    " Pressing ,sp will toggle and untoggle spell checking
+    map <leader>sp :setlocal spell!<cr>
+
+    " Shortcuts using <leader>
+    " map <leader>sn ]s
+    " map <leader>sp [s
+    " map <leader>sa zg
+    " map <leader>s? z=
+
+
+    " => Misc
+    " Remove the Windows ^M - when the encodings gets messed up
+    " noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+    " Quickly open a buffer for scribble
+    " map <leader>q :e ~/buffer<cr>
+
+    " Quickly open a markdown buffer for scribble
+    " map <leader>x :e ~/buffer.md<cr>
+
+    " Toggle paste mode on and off
+    " map <leader>pp :setlocal paste!<cr>
+
+" }
+
+" Plugins {
+    " vim-airline {
+        " Set configuration options for the statusline plugin vim-airline.
+        " Use the powerline theme and optionally enable powerline symbols.
+        " To use the symbols , , , , , , and .in the statusline
+        " segments add the following to your .vimrc.before.local file:
+        "   let g:airline_powerline_fonts=1
+        " If the previous symbols do not render for you then install a
+        " powerline enabled font.
+
+        " See `:echo g:airline_theme_map` for some more choices
+        " Default in terminal vim is 'dark'
+        if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
+            if !exists('g:airline_theme')
+                let g:airline_theme = 'solarized'
+            endif
+            if !exists('g:airline_powerline_fonts')
+                " Use the default set of separators with a few customizations
+                let g:airline_left_sep='›'  " Slightly fancier than '>'
+                let g:airline_right_sep='‹' " Slightly fancier than '<'
+            endif
+        endif
+    " }
+
+    " NerdTree {
+        if isdirectory(expand("~/.vim/bundle/nerdtree"))
+            map <C-e> <plug>NERDTreeTabsToggle<CR>
+            map <leader>e :NERDTreeFind<CR>
+            nmap <leader>nt :NERDTreeFind<CR>
+                " NERDTree
+
+            let g:NERDTreeDirArrowExpandable = '▸'
+            let g:NERDTreeDirArrowCollapsible = '▾'
+            let NERDTreeQuitOnOpen = 1
+            let NERDTreeShowBookmarks=1
+            let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+            let NERDTreeChDirMode=0
+            let NERDTreeQuitOnOpen=1
+            let NERDTreeMouseMode=2
+            let NERDTreeShowHidden=1
+            let NERDTreeKeepTreeInNewTab=1
+            let g:nerdtree_tabs_open_on_gui_startup=0
+        endif
+    " }
+
+    " nerdcommenter {
+        let NERDSpaceDelims = 1
+        " let g:NERDCustomDelimiters = { 'javascript' : { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'  } } 
+    " }
+
+    " ctrlp {
+        if isdirectory(expand("~/.vim/bundle/ctrlp.vim/"))
+            nnoremap <silent> <D-t> :CtrlP<CR>
+            nnoremap <silent> <D-r> :CtrlPMRU<CR>
+            map <leader>f :CtrlPMRU<CR>
+            
+            " let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
+            let g:ctrlp_working_path_mode = 'ra'
+            let g:ctrlp_custom_ignore = {
+                \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+                \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
+
+            if executable('ag')
+                let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
+            elseif executable('ack-grep')
+                let s:ctrlp_fallback = 'ack-grep %s --nocolor -f'
+            elseif executable('ack')
+                let s:ctrlp_fallback = 'ack %s --nocolor -f'
+            " On Windows use "dir" as fallback command.
+            elseif WINDOWS()
+                let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
+            else
+                let s:ctrlp_fallback = 'find %s -type f'
+            endif
+            if exists("g:ctrlp_user_command")
+                unlet g:ctrlp_user_command
+            endif
+            let g:ctrlp_user_command = {
+                \ 'types': {
+                    \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+                    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+                \ },
+                \ 'fallback': s:ctrlp_fallback
+            \ }
+
+            if isdirectory(expand("~/.vim/bundle/ctrlp-funky/"))
+                " CtrlP extensions
+                let g:ctrlp_extensions = ['funky']
+
+                "funky
+                nnoremap <Leader>fu :CtrlPFunky<Cr>
+            endif
+        endif
+    "}
+
+    " Rainbow {
+        if isdirectory(expand("~/.vim/bundle/rainbow/"))
+            let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+        endif
+    "}
+
+    " Fugitive {
+        if isdirectory(expand("~/.vim/bundle/vim-fugitive/"))
+            nnoremap <silent> <leader>gs :Gstatus<CR>
+            nnoremap <silent> <leader>gd :Gdiff<CR>
+            nnoremap <silent> <leader>gc :Gcommit<CR>
+            nnoremap <silent> <leader>gb :Gblame<CR>
+            nnoremap <silent> <leader>gl :Glog<CR>
+            nnoremap <silent> <leader>gp :Git push<CR>
+            nnoremap <silent> <leader>gr :Gread<CR>
+            nnoremap <silent> <leader>gw :Gwrite<CR>
+            nnoremap <silent> <leader>ge :Gedit<CR>
+            " Mnemonic _i_nteractive
+            nnoremap <silent> <leader>gi :Git add -p %<CR>
+            nnoremap <silent> <leader>gg :SignifyToggle<CR>
+        endif
+    "}
+
+    " YouCompleteMe {
+        if isdirectory(expand("~/.vim/bundle/youcompleteme/"))
+            nnoremap <leader>gdl :YcmCompleter GoToDeclaration<CR>
+            nnoremap <leader>gdf :YcmCompleter GoToDefinition<CR>
+            nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+            map <F3> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+
+            let g:ycm_min_num_of_chars_for_completion = 1 
+            let g:ycm_autoclose_preview_window_after_completion=1
+            let g:ycm_complete_in_comments = 1
+            let g:ycm_key_list_select_completion = ['<tab>', '<c-j>', '<c-n>', '<Down>']
+            let g:ycm_key_list_previous_completion = ['<c-k>', '<c-p>', '<Up>']
+            let g:ycm_confirm_extra_conf = 0
+            let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
+
+            let g:acp_enableAtStartup = 0
+
+            " enable completion from tags
+            let g:ycm_collect_identifiers_from_tags_files = 1
+
+            " remap Ultisnips for compatibility for YCM
+            let g:UltiSnipsExpandTrigger = '<C-j>'
+            let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+            let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+
+            " Enable omni completion.
+            autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+            autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+            autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+            autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+            autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+            autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+            " Haskell post write lint and check with ghcmod
+            " $ `cabal install ghcmod` if missing and ensure
+            " ~/.cabal/bin is in your $PATH.
+            if !executable("ghcmod")
+                autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+            endif
+
+            " For snippet_complete marker.
+            if !exists("g:spf13_no_conceal")
+                if has('conceal')
+                    set conceallevel=2 concealcursor=i
+                endif
+            endif
+
+            " Disable the neosnippet preview candidate window
+            " When enabled, there can be too much visual noise
+            " especially when splits are used.
+            set completeopt-=preview
+        endif
+    " }
+
+    " ultisnips {
+        if isdirectory(expand("~/.vim/bundle/ultisnips/"))
+            let g:UltiSnipsExpandTrigger="<Tab>"
+            let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+            let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+        endif
+    " }
+
+    " supertab {
+        if isdirectory(expand("~/.vim/bundle/supertab/"))
+            let g:ycm_key_list_select_completion = ['<C-TAB>', '<C-j>', '<Down>'] 
+            let g:ycm_key_list_previous_completion = ['<C-S-TAB>', '<C-k>', '<Up>']
+            let g:SuperTabDefaultCompletionType = '<C-Tab>'
+        endif
+    " }
+
+    " Tabularize {
+        if isdirectory(expand("~/.vim/bundle/tabular"))
+            nmap <Leader>a& :Tabularize /&<CR>
+            vmap <Leader>a& :Tabularize /&<CR>
+            nmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
+            vmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
+            nmap <Leader>a=> :Tabularize /=><CR>
+            vmap <Leader>a=> :Tabularize /=><CR>
+            nmap <Leader>a: :Tabularize /:<CR>
+            vmap <Leader>a: :Tabularize /:<CR>
+            nmap <Leader>a:: :Tabularize /:\zs<CR>
+            vmap <Leader>a:: :Tabularize /:\zs<CR>
+            nmap <Leader>a, :Tabularize /,<CR>
+            vmap <Leader>a, :Tabularize /,<CR>
+            nmap <Leader>a,, :Tabularize /,\zs<CR>
+            vmap <Leader>a,, :Tabularize /,\zs<CR>
+            nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+            vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+        endif
+    " }
+
+    " Session List {
+        set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
+        if isdirectory(expand("~/.vim/bundle/sessionman.vim/"))
+            nmap <leader>sl :SessionList<CR>
+            nmap <leader>ss :SessionSave<CR>
+            nmap <leader>sc :SessionClose<CR>
+        endif
+    " }
+
+    " JSON {
+        nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
+
+        let g:vim_json_syntax_conceal = 0
+    " }
+
+    " PyMode {
+        " Disable if python support not present
+        if !has('python') && !has('python3')
+            let g:pymode = 0
+        endif
+
+        if isdirectory(expand("~/.vim/bundle/python-mode"))
+            let g:pymode_lint_checkers = ['pyflakes']
+            let g:pymode_trim_whitespaces = 0
+            let g:pymode_options = 0
+            let g:pymode_rope = 0
+        endif
+    " }
+
+    " UndoTree {
+        if isdirectory(expand("~/.vim/bundle/undotree/"))
+            nnoremap <Leader>u :UndotreeToggle<CR>
+            " If undotree is opened, it is likely one wants to interact with it.
+            let g:undotree_SetFocusWhenToggle=1
+        endif
+    " }
+
+    " indent_guides {
+        if isdirectory(expand("~/.vim/bundle/vim-indent-guides/"))
+            let g:indent_guides_start_level = 2
+            let g:indent_guides_guide_size = 1
+            let g:indent_guides_enable_on_vim_startup = 1
+        endif
+    " }
+
+    " Wildfire {
+        let g:wildfire_objects = {
+        \ "*" : ["i'", 'i"', "i)", "i]", "i}", "ip"],
+        \ "html,xml" : ["at"],
+        \ }
+    " }
+
+    " vim-javascript {
+        if isdirectory(expand("~/.vim/bundle/vim-javascript/"))
+            let g:javascript_enable_domhtmlcss = 1
+        endif
+    " }
+
+    " delimitMate {
+        if isdirectory(expand("~/.vim/bundle/delimitMate/"))
+            let delimitMate_expand_cr = 1
+        endif
+    " }
+
+    " syntastic {
+        if isdirectory(expand("~/.vim/bundle/syntastic/"))
+            noremap <leader>sc :Errors<CR>
+            noremap <leader>sq :lclose<CR>
+
+            let delimitMate_expand_cr = 1
+            set statusline+=%#warningmsg#
+            set statusline+=%{SyntasticStatuslineFlag()}
+            set statusline+=%*
+
+            let g:syntastic_always_populate_loc_list = 1 
+            let g:syntastic_auto_loc_list = 1
+            let g:syntastic_check_on_open = 0
+            let g:syntastic_check_on_wq = 0
+            let g:syntastic_javascript_checkers = ['eslint']
+            let g:syntastic_vue_checkers = ['eslint']
+            " let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
+            " if matchstr(local_eslint, "^\/\\w") == ''
+              " let local_eslint = getcwd() . "/" . local_eslint
+            " endif
+            " if executable(local_eslint)
+              " let g:syntastic_javascript_eslint_exec = local_eslint
+              " let g:syntastic_vue_eslint_exec = local_eslint
+            " endif
+        endif
+    " }
+
+    
+    
+" }
+
+" Functions {
+
+    " Initialize NERDTree as needed {
+    function! NERDTreeInitAsNeeded()
+        redir => bufoutput
+        buffers!
+        redir END
+        let idx = stridx(bufoutput, "NERD_tree")
+        if idx > -1
+            NERDTreeMirror
+            NERDTreeFind
+            wincmd l
+        endif
+    endfunction
+    " }
+
+    " Strip whitespace {
+    function! StripTrailingWhitespace()
+        " Preparation: save last search, and cursor position.
+        let _s=@/
+        let l = line(".")
+        let c = col(".")
+        " do the business:
+        %s/\s\+$//e
+        " clean up: restore previous search history, and cursor position
+        let @/=_s
+        call cursor(l, c)
+    endfunction
+    " }
+
+    function! CmdLine(str)
+        exe "menu Foo.Bar :" . a:str
+        emenu Foo.Bar
+        unmenu Foo
+    endfunction 
+
+    function! VisualSelection(direction, extra_filter) range
+        let l:saved_reg = @"
+        execute "normal! vgvy"
+
+        let l:pattern = escape(@", '\\/.*$^~[]')
+        let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+        if a:direction == 'b'
+            execute "normal ?" . l:pattern . "^M"
+        elseif a:direction == 'gv'
+            call CmdLine("Ag \"" . l:pattern . "\" " )
+        elseif a:direction == 'replace'
+            call CmdLine("%s" . '/'. l:pattern . '/')
+        elseif a:direction == 'f'
+            execute "normal /" . l:pattern . "^M"
+        endif
+
+        let @/ = l:pattern
+        let @" = l:saved_reg
+    endfunction
+
+
+    " Returns true if paste mode is enabled
+    function! HasPaste()
+        if &paste
+            return 'PASTE MODE  '
+        endif
+        return ''
+    endfunction
+
+    " Don't close window, when deleting a buffer
+    command! Bclose call <SID>BufcloseCloseIt()
+    function! <SID>BufcloseCloseIt()
+       let l:currentBufNum = bufnr("%")
+       let l:alternateBufNum = bufnr("#")
+
+       if buflisted(l:alternateBufNum)
+         buffer #
+       else
+         bnext
+       endif
+
+       if bufnr("%") == l:currentBufNum
+         new
+       endif
+
+       if buflisted(l:currentBufNum)
+         execute("bdelete! ".l:currentBufNum)
+       endif
+    endfunction
+
+" }
