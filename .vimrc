@@ -79,6 +79,8 @@ Plugin 'VundleVim/Vundle.vim'
     Plugin 'Shougo/unite.vim'
     
     Plugin 'ervandew/supertab'
+
+    " Plugin 'terryma/vim-smooth-scroll'
 " }
 
 " Writing {
@@ -203,6 +205,27 @@ filetype plugin indent on    " required
         endfunction
     " }
 
+    " GVIM- (here instead of .gvimrc)
+    if has('gui_running')
+        set guioptions-=T           " Remove the toolbar
+        set lines=40                " 40 lines of text instead of 24
+        if !exists("g:spf13_no_big_font")
+            if LINUX() && has("gui_running")
+                set guifont=Andale\ Mono\ Regular\ 12,Menlo\ Regular\ 11,Consolas\ Regular\ 12,Courier\ New\ Regular\ 14
+            elseif OSX() && has("gui_running")
+                set guifont=Andale\ Mono\ Regular:h12,Menlo\ Regular:h11,Consolas\ Regular:h12,Courier\ New\ Regular:h14
+            elseif WINDOWS() && has("gui_running")
+                set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+            endif
+        endif
+    else
+        if &term == 'xterm' || &term == 'screen'
+            set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+        endif
+        "set term=builtin_ansi       " Make arrow and other keys work
+    endif
+
+
     syntax enable
     syntax on
     set background=dark
@@ -226,6 +249,11 @@ filetype plugin indent on    " required
     highlight clear LineNr          " Current line number row will have same background color in relative mode
     "highlight clear CursorLineNr    " Remove highlight color from current line number
 
+    " exe "hi! airline_error ctermfg=White"
+    " highlight airline_error_bold ctermfg=White
+    " highlight airline_error_inactive ctermfg=White
+    " highlight airline_error_inactive_bold ctermfg=White
+    
     if has('cmdline_info')
         set ruler                   " Show the ruler
         set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
@@ -489,6 +517,8 @@ filetype plugin indent on    " required
     nmap <s-tab> V<
     vmap <tab> >gv
     vmap <s-tab> <gv
+    snoremap <silent> <tab> >gv
+    snoremap <silent> <s-tab> <gv
 
     " Line swap
     " nmap <s-j> mz:m+<cr>`z
@@ -760,9 +790,10 @@ filetype plugin indent on    " required
 
     " ultisnips {
         if isdirectory(expand("~/.vim/bundle/ultisnips/"))
-            let g:UltiSnipsExpandTrigger="<Tab>"
+            let g:UltiSnipsExpandTrigger="<TAB>"
             let g:UltiSnipsJumpForwardTrigger = '<C-j>'
             let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+            let g:UltiSnipsRemoveSelectModeMappings = 0
         endif
     " }
 
@@ -886,8 +917,14 @@ filetype plugin indent on    " required
         endif
     " }
 
-    
-    
+    " vim-smooth-scroll {
+        if isdirectory(expand("~/.vim/bundle/vim-smooth-scroll/"))
+            noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+            noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+            noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+            noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+        endif
+    " }
 " }
 
 " Functions {
