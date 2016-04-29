@@ -47,7 +47,7 @@ Plugin 'VundleVim/Vundle.vim'
     Plugin 'scrooloose/nerdtree'
     Plugin 'jistr/vim-nerdtree-tabs'
 
-    Plugin 'kien/ctrlp.vim'
+    " Plugin 'kien/ctrlp.vim'
 
     Plugin 'amix/open_file_under_cursor.vim'
 
@@ -77,6 +77,8 @@ Plugin 'VundleVim/Vundle.vim'
     Plugin 'reedes/vim-litecorrect'
 
     Plugin 'Shougo/unite.vim'
+    Plugin 'Shougo/vimproc.vim'
+    Plugin 'Shougo/neomru.vim'
     
     Plugin 'ervandew/supertab'
 
@@ -124,7 +126,7 @@ Plugin 'VundleVim/Vundle.vim'
         Plugin 'tpope/vim-surround'
         Plugin 'tpope/vim-repeat'
 
-        Plugin 'tacahiroy/ctrlp-funky'
+        " Plugin 'tacahiroy/ctrlp-funky'
 
         " Plugin 'mattn/webapi-vim'
         " Plugin 'mattn/gist-vim'
@@ -190,6 +192,11 @@ Plugin 'VundleVim/Vundle.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 " " Put your non-Plugin stuff after this line
+
+" Set augroup
+augroup MyAutoCmd
+  autocmd!
+augroup END
 
 " Vim UI {
 
@@ -356,6 +363,7 @@ filetype plugin indent on    " required
     if has("win16") || has("win32")
         set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
     else
+        " Add additional space to the comment
         set wildignore+=.git\*,.hg\*,.svn\*
     endif
 
@@ -474,8 +482,6 @@ filetype plugin indent on    " required
     catch
     endtry
 
-
-
     " :W sudo saves the file 
     " (useful for handling the permission-denied error)
     command W w !sudo tee % > /dev/null
@@ -517,8 +523,6 @@ filetype plugin indent on    " required
     nmap <s-tab> V<
     vmap <tab> >gv
     vmap <s-tab> <gv
-    snoremap <silent> <tab> >gv
-    snoremap <silent> <s-tab> <gv
 
     " Line swap
     " nmap <s-j> mz:m+<cr>`z
@@ -649,7 +653,7 @@ filetype plugin indent on    " required
             let g:NERDTreeDirArrowCollapsible = '▾'
             let NERDTreeQuitOnOpen = 1
             let NERDTreeShowBookmarks=1
-            let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+            let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$', '\.DS_Store$']
             let NERDTreeChDirMode=0
             let NERDTreeQuitOnOpen=1
             let NERDTreeMouseMode=2
@@ -660,6 +664,7 @@ filetype plugin indent on    " required
     " }
 
     " nerdcommenter {
+        " Add additional space to the comment
         let NERDSpaceDelims = 1
         " let g:NERDCustomDelimiters = { 'javascript' : { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/'  } } 
     " }
@@ -674,7 +679,7 @@ filetype plugin indent on    " required
             let g:ctrlp_working_path_mode = 'ra'
             let g:ctrlp_custom_ignore = {
                 \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-                \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
+                \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$|\.DS_Store$' }
 
             if executable('ag')
                 let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
@@ -919,10 +924,195 @@ filetype plugin indent on    " required
 
     " vim-smooth-scroll {
         if isdirectory(expand("~/.vim/bundle/vim-smooth-scroll/"))
-            noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-            noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-            noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-            noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+            " noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+            " noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+            " noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+            " noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+        endif
+    " }
+
+    " unite {
+        if isdirectory(expand("~/.vim/bundle/unite.vim"))
+            nnoremap <silent> <C-p> :<C-u>Unite
+                  \ -buffer-name=files buffer file_mru bookmark file_rec/async<CR>
+            nnoremap <silent> <leader>f :<C-u>Unite -buffer-name=buffers file_mru buffer<CR>
+
+            let g:unite_enable_start_insert = 1
+            let g:unite_data_directory = "~/.vim_unite"
+            call unite#filters#matcher_default#use(['matcher_fuzzy'])
+            " call unite#filters#sorter_default#use(['sorter_rank']))
+            call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
+                \ 'ignore_pattern', join([
+                \ '\.git/',
+                \ 'git5/.*/review/',
+                \ 'google/obj/',
+                \ 'tmp/',
+                \ '.sass-cache',
+                \ 'node_modules/',
+                \ 'bower_components/',
+                \ 'dist/',
+                \ '.git5_specs/',
+                \ '.pyc',
+                \ 'build/',
+                \ '.DS_Store',
+                \ ], '\|'))
+
+            " Map space to the prefix for Unite
+            nnoremap [unite] <Nop>
+            nmap <leader>u [unite]
+
+            " General fuzzy search
+            nnoremap <silent> [unite]<space> :<C-u>Unite
+                  \ -buffer-name=files buffer file_mru bookmark file_rec/async<CR>
+
+            " Quick registers
+            nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+
+            " Quick buffer and mru
+            nnoremap <silent> [unite]u :<C-u>Unite -buffer-name=buffers file_mru buffer<CR>
+
+            " Quick yank history
+            nnoremap <silent> [unite]y :<C-u>Unite -buffer-name=yanks history/yank<CR>
+
+            " Quick outline
+            nnoremap <silent> [unite]o :<C-u>Unite -buffer-name=outline -vertical outline<CR>
+
+            " Quick sessions (projects)
+            nnoremap <silent> [unite]p :<C-u>Unite -buffer-name=sessions session<CR>
+
+            " Quick sources
+            nnoremap <silent> [unite]a :<C-u>Unite -buffer-name=sources source<CR>
+
+            " Quick snippet
+            nnoremap <silent> [unite]s :<C-u>Unite -buffer-name=snippets ultisnips<CR>
+
+            " Quickly switch lcd
+            nnoremap <silent> [unite]d
+                  \ :<C-u>Unite -buffer-name=change-cwd -default-action=cd directory_mru directory_rec/async<CR>
+
+            " Quick file search
+            nnoremap <silent> [unite]f :<C-u>Unite -buffer-name=files file_rec/async file/new<CR>
+
+            " Quick grep from cwd
+            nnoremap <silent> [unite]g :<C-u>Unite -buffer-name=grep grep:.<CR>
+
+            " Quick help
+            nnoremap <silent> [unite]h :<C-u>Unite -buffer-name=help help<CR>
+
+            " Quick line using the word under cursor
+            " nnoremap <silent> [unite]l :<C-u>UniteWithCursorWord -buffer-name=search_file line<CR>
+
+            " Quick line
+            nnoremap <silent> [unite]l :<C-u>Unite -buffer-name=search_file line<CR>
+
+            " Quick MRU search
+            nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=mru file_mru<CR>
+
+            " Quick find
+            nnoremap <silent> [unite]n :<C-u>Unite -buffer-name=find find:.<CR>
+
+            " Quick commands
+            nnoremap <silent> [unite]c :<C-u>Unite -buffer-name=commands command<CR>
+
+            " Quick bookmarks
+            nnoremap <silent> [unite]b :<C-u>Unite -buffer-name=bookmarks bookmark<CR>
+
+            " Fuzzy search from current buffer
+            " nnoremap <silent> [unite]b :<C-u>UniteWithBufferDir
+            " \ -buffer-name=files -prompt=%\  buffer file_mru bookmark file<CR>
+
+            " Quick commands
+            nnoremap <silent> [unite]; :<C-u>Unite -buffer-name=history -default-action=edit history/command command<CR>
+
+            " Custom Unite settings
+            autocmd MyAutoCmd FileType unite call s:unite_settings()
+            function! s:unite_settings()
+                " nmap <buffer> <ESC> <Plug>(unite_exit)
+                nmap <buffer> <ESC> <Plug>(unite_insert_enter)
+                imap <buffer> <ESC> <Plug>(unite_exit)
+                " imap <buffer> <c-j> <Plug>(unite_select_next_line)
+                imap <buffer> <c-j> <Plug>(unite_insert_leave)
+                imap <buffer> <c-k> <Plug>(unite_insert_leave)
+                nmap <buffer> <c-j> <Plug>(unite_loop_cursor_down)
+                nmap <buffer> <c-k> <Plug>(unite_loop_cursor_up)
+                nmap <buffer> <tab> <Plug>(unite_loop_cursor_down)
+                nmap <buffer> <s-tab> <Plug>(unite_loop_cursor_up)
+                imap <buffer> <c-a> <Plug>(unite_choose_action)
+                imap <buffer> <Tab> <Plug>(unite_insert_leave)
+                imap <buffer> jj <Plug>(unite_insert_leave)
+                imap <buffer> <C-w> <Plug>(unite_delete_backward_word)
+                imap <buffer> <C-u> <Plug>(unite_delete_backward_path)
+                imap <buffer> '     <Plug>(unite_quick_match_default_action)
+                nmap <buffer> '     <Plug>(unite_quick_match_default_action)
+                nmap <buffer> <C-r> <Plug>(unite_redraw)
+                imap <buffer> <C-r> <Plug>(unite_redraw)
+                inoremap <silent><buffer><expr> <C-s> unite#do_action('split')
+                nnoremap <silent><buffer><expr> <C-s> unite#do_action('split')
+                inoremap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+                nnoremap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+
+                let unite = unite#get_current_unite()
+                if unite.buffer_name =~# '^search'
+                nnoremap <silent><buffer><expr> r     unite#do_action('replace')
+                else
+                nnoremap <silent><buffer><expr> r     unite#do_action('rename')
+                endif
+
+                nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
+
+                " Using Ctrl-\ to trigger outline, so close it using the same keystroke
+                if unite.buffer_name =~# '^outline'
+                imap <buffer> <C-\> <Plug>(unite_exit)
+                endif
+
+                " Using Ctrl-/ to trigger line, close it using same keystroke
+                if unite.buffer_name =~# '^search_file'
+                imap <buffer> <C-_> <Plug>(unite_exit)
+                endif
+            endfunction
+
+            " Start in insert mode
+            let g:unite_enable_start_insert = 1
+
+            " Enable short source name in window
+            " let g:unite_enable_short_source_names = 1
+
+            " Enable history yank source
+            " let g:unite_source_history_yank_enable = 1
+
+            " Open in bottom right
+            let g:unite_split_rule = "botright"
+
+            " Shorten the default update date of 500ms
+            let g:unite_update_time = 200
+
+            let g:unite_source_file_mru_limit = 1000
+            let g:unite_cursor_line_highlight = 'TabLineSel'
+            " let g:unite_abbr_highlight = 'TabLine'
+
+            let g:unite_source_file_mru_filename_format = ':~:.'
+            let g:unite_source_file_mru_time_format = ''
+
+            " For ack.
+            if executable('ack-grep')
+              let g:unite_source_grep_command = 'ack-grep'
+              let g:unite_source_grep_default_opts = '-i --no-heading --no-color -a -H'
+              let g:unite_source_grep_recursive_opt = ''
+            elseif executable('ack')
+              let g:unite_source_grep_command = 'ack'
+              let g:unite_source_grep_default_opts = '-i --no-heading --no-color -a -H'
+              let g:unite_source_grep_recursive_opt = ''
+            elseif executable('ag')
+              let g:unite_source_grep_command = 'ag'
+              let g:unite_source_grep_default_opts =
+                    \ '-i --vimgrep --hidden --ignore ' .
+                    \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+              let g:unite_source_grep_recursive_opt = ''
+            endif
+
+            let g:unite_source_rec_max_cache_files = 99999
+
+
         endif
     " }
 " }
