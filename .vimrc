@@ -51,11 +51,12 @@ Plugin 'VundleVim/Vundle.vim'
 
     Plugin 'amix/open_file_under_cursor.vim'
 
-    Plugin 'vim-scripts/mru.vim'
+    " Plugin 'vim-scripts/mru.vim'
 
     Plugin 'myusuf3/numbers.vim'
 
-    Plugin 'vim-scripts/sessionman.vim'
+    " Plugin 'vim-scripts/sessionman.vim'
+    " Plugin 'xolox/vim-session'
 
     Plugin 'vim-scripts/matchit.zip'
     
@@ -79,6 +80,7 @@ Plugin 'VundleVim/Vundle.vim'
     Plugin 'Shougo/unite.vim'
     Plugin 'Shougo/vimproc.vim'
     Plugin 'Shougo/neomru.vim'
+    Plugin 'Shougo/unite-session'
     
     Plugin 'ervandew/supertab'
 
@@ -144,6 +146,7 @@ Plugin 'VundleVim/Vundle.vim'
         Plugin 'yssource/python.vim'
         Plugin 'python_match.vim'
         Plugin 'pythoncomplete'
+        Plugin 'jmcantrell/vim-virtualenv'
     " }
 
     " Javascript {
@@ -169,7 +172,7 @@ Plugin 'VundleVim/Vundle.vim'
     " }
     
     " Vue {
-        Plugin 'posva/vim-vue'
+        " Plugin 'posva/vim-vue'
         " Plugin 'sekel/vim-vue-syntastic'
     " }
 
@@ -403,6 +406,9 @@ augroup END
     autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 sts=0 expandtab
     autocmd FileType css setlocal shiftwidth=2 tabstop=2 sts=0 expandtab
     autocmd FileType scss setlocal shiftwidth=2 tabstop=2 sts=0 expandtab
+    " autocmd FileType vue setlocal shiftwidth=2 tabstop=2 sts=0 expandtab
+
+    autocmd BufNewFile,BufRead *.vue set filetype=html.javascript.css
 
 " }
 
@@ -424,6 +430,11 @@ augroup END
         else         " On mac and Windows, use * register for copy-paste
             set clipboard=unnamed
         endif
+    endif
+
+    if OSX()
+        vmap <C-c> y:call system("pbcopy", getreg("/""))<CR>
+        nmap <C-v> :call setreg("/"",system("pbpaste"))<CR>p
     endif
 
     " If no plugin like restore-view exists
@@ -494,10 +505,12 @@ augroup END
     inoremap <leader>sr <C-o>:syntax sync fromstart<CR>
 
     " tabs related
-    " Mac only. Alt+h/l to switch to left/right tab.
+    " Mac only. Alt+;/' to switch to left/right tab.
     if has("mac") || has("macunix")
-        nmap ¬ :tabnext<cr>
-        nmap ˙ :tabprevious<cr>
+        " nmap ¬ :tabnext<cr>
+        " nmap ˙ :tabprevious<cr>
+        nmap æ :tabnext<cr>
+        nmap … :tabprevious<cr>
     endif
 
     " map <leader>ll :tabnext<cr>
@@ -523,6 +536,10 @@ augroup END
     nmap <s-tab> V<
     vmap <tab> >gv
     vmap <s-tab> <gv
+
+    " Remap ctrl-o, ctrl-i to alt-h/l
+    noremap ˙ <C-o>
+    noremap ¬ <C-i>
 
     " Line swap
     " nmap <s-j> mz:m+<cr>`z
@@ -616,6 +633,8 @@ augroup END
     " Toggle paste mode on and off
     " map <leader>pp :setlocal paste!<cr>
 
+    nmap <silent> <leader>rp :!python %<cr>
+    nmap <silent> <leader>rr :!<cr>
 " }
 
 " Plugins {
@@ -659,6 +678,7 @@ augroup END
             let NERDTreeMouseMode=2
             let NERDTreeShowHidden=1
             let NERDTreeKeepTreeInNewTab=1
+            let NERDTreeWinSize = 31
             let g:nerdtree_tabs_open_on_gui_startup=0
         endif
     " }
@@ -748,8 +768,8 @@ augroup END
             let g:ycm_min_num_of_chars_for_completion = 1 
             let g:ycm_autoclose_preview_window_after_completion=1
             let g:ycm_complete_in_comments = 1
-            let g:ycm_key_list_select_completion = ['<tab>', '<c-j>', '<c-n>', '<Down>']
-            let g:ycm_key_list_previous_completion = ['<c-k>', '<c-p>', '<Up>']
+            " let g:ycm_key_list_select_completion = ['<tab>', '<c-j>', '<c-n>', '<Down>']
+            " let g:ycm_key_list_previous_completion = ['<c-k>', '<c-p>', '<Up>']
             let g:ycm_confirm_extra_conf = 0
             let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
 
@@ -759,9 +779,9 @@ augroup END
             let g:ycm_collect_identifiers_from_tags_files = 1
 
             " remap Ultisnips for compatibility for YCM
-            let g:UltiSnipsExpandTrigger = '<C-j>'
-            let g:UltiSnipsJumpForwardTrigger = '<C-j>'
-            let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+            " let g:UltiSnipsExpandTrigger = '<C-j>'
+            " let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+            " let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
             " Enable omni completion.
             autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -804,9 +824,9 @@ augroup END
 
     " supertab {
         if isdirectory(expand("~/.vim/bundle/supertab/"))
-            let g:ycm_key_list_select_completion = ['<C-TAB>', '<C-j>', '<Down>'] 
-            let g:ycm_key_list_previous_completion = ['<C-S-TAB>', '<C-k>', '<Up>']
-            let g:SuperTabDefaultCompletionType = '<C-Tab>'
+            let g:ycm_key_list_select_completion = ['<C-n>', '<C-j>', '<Down>'] 
+            let g:ycm_key_list_previous_completion = ['<C-p>', '<C-k>', '<Up>']
+            let g:SuperTabDefaultCompletionType = '<C-n>'
         endif
     " }
 
@@ -832,11 +852,16 @@ augroup END
     " }
 
     " Session List {
-        set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
+        " set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
+        set sessionoptions=buffers,curdir,folds,tabpages,winsize
         if isdirectory(expand("~/.vim/bundle/sessionman.vim/"))
             nmap <leader>sl :SessionList<CR>
             nmap <leader>ss :SessionSave<CR>
             nmap <leader>sc :SessionClose<CR>
+        endif
+        if isdirectory(expand("~/.vim/bundle/unite-session/"))
+            nmap <leader>sl :UniteSessionLoad 
+            nmap <leader>ss :UniteSessionSave 
         endif
     " }
 
@@ -857,6 +882,11 @@ augroup END
             let g:pymode_trim_whitespaces = 0
             let g:pymode_options = 0
             let g:pymode_rope = 0
+            " Override run current python file key shortcut to Ctrl-Shift-e
+            let g:pymode_run_bind = "<C-x>"
+            " let g:pymode_virtualenv = 1
+            " let g:pymode_python = 'python'
+            " let g:pymode_paths = ['/Users/seandot7/.pyenv/shims/']
         endif
     " }
 
@@ -897,20 +927,21 @@ augroup END
 
     " syntastic {
         if isdirectory(expand("~/.vim/bundle/syntastic/"))
-            noremap <leader>sc :Errors<CR>
-            noremap <leader>sq :lclose<CR>
+            noremap <leader>se :SyntasticCheck<CR>
+            " Syntastic Hide
+            noremap <leader>sh :lclose<CR>
 
             let delimitMate_expand_cr = 1
             set statusline+=%#warningmsg#
             set statusline+=%{SyntasticStatuslineFlag()}
             set statusline+=%*
 
-            let g:syntastic_always_populate_loc_list = 1 
+            let g:syntastic_always_populate_loc_list = 1
             let g:syntastic_auto_loc_list = 1
             let g:syntastic_check_on_open = 0
             let g:syntastic_check_on_wq = 0
             let g:syntastic_javascript_checkers = ['eslint']
-            let g:syntastic_vue_checkers = ['eslint']
+            " let g:syntastic_vue_checkers = ['eslint']
             " let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
             " if matchstr(local_eslint, "^\/\\w") == ''
               " let local_eslint = getcwd() . "/" . local_eslint
@@ -955,6 +986,7 @@ augroup END
                 \ '.pyc',
                 \ 'build/',
                 \ '.DS_Store',
+                \ '.tox/'
                 \ ], '\|'))
 
             " Map space to the prefix for Unite
@@ -1073,7 +1105,8 @@ augroup END
 
             " Start in insert mode
             let g:unite_enable_start_insert = 1
-
+            let g:unite_source_rec_async_command =
+                \ ['ack', '-f', '--nofilter']
             " Enable short source name in window
             " let g:unite_enable_short_source_names = 1
 
@@ -1086,7 +1119,7 @@ augroup END
             " Shorten the default update date of 500ms
             let g:unite_update_time = 200
 
-            let g:unite_source_file_mru_limit = 1000
+            let g:unite_source_file_mru_limit = 20
             let g:unite_cursor_line_highlight = 'TabLineSel'
             " let g:unite_abbr_highlight = 'TabLine'
 
@@ -1114,6 +1147,20 @@ augroup END
 
 
         endif
+    " }
+
+    " unite-session {
+        " Save session automatically.
+        let g:unite_source_session_enable_auto_save = 1
+        let g:unite_source_session_options = 'buffers,curdir,folds,help,tabpages,winsize'
+        " Pop up session selection if no file is specified
+        " TODO: Why does this not work when Vim isn't run from tmux???!
+        " autocmd MyAutoCmd VimEnter * call s:unite_session_on_enter()
+        function! s:unite_session_on_enter()
+          if !argc() && !exists("g:start_session_from_cmdline")
+            Unite -buffer-name=sessions session
+          endif
+        endfunction
     " }
 " }
 
